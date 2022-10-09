@@ -3,7 +3,7 @@ package com.example.diceroller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
+import android.widget.ImageView
 
 /**
  * This activity allows the user to roll a dice and view the result
@@ -16,6 +16,9 @@ class MainActivity : AppCompatActivity() {
 
         val rollButton: Button = findViewById(R.id.button)
         rollButton.setOnClickListener { rollDice() }
+
+        // Do a dice roll when the app starts
+        rollDice()
     }
 
     /**
@@ -26,11 +29,30 @@ class MainActivity : AppCompatActivity() {
         val dice = Dice(6)
 
         // Update the screen with the two dice rolls
-        val resultTextView1: TextView = findViewById(R.id.textView)
-        resultTextView1.text = dice.roll().toString()
+        val diceImg1: ImageView = findViewById(R.id.imageView)
+        val drawableDice1 = getDiceDrawable(dice.roll())
+        diceImg1.setImageResource(drawableDice1)
+        diceImg1.contentDescription = drawableDice1.toString()
 
-        val resultTextView2: TextView = findViewById(R.id.textView2)
-        resultTextView2.text = dice.roll().toString()
+        val diceImg2: ImageView = findViewById(R.id.imageView2)
+        val drawableDice2 = getDiceDrawable(dice.roll())
+        diceImg2.setImageResource(drawableDice2)
+        diceImg2.contentDescription = drawableDice2.toString()
+    }
+
+    /**
+     * Determine which drawable resource ID to use based on the dice roll
+     */
+    private fun getDiceDrawable(diceRoll: Number): Int {
+        return when (diceRoll) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+
     }
 }
 
