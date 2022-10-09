@@ -11,7 +11,14 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun diceRoll_returnsValue() {
+        val roll = Dice(6).roll()
+        assertNotNull("Roll dice returned a null value", roll)
+    }
+
+    @Test
+    fun diceRoll_generatesRandomNumber() {
+        val roll = Dice(6).roll()
+        assertTrue("The value of rollResult was not between 1 and 6",roll in 1..6)
     }
 }
